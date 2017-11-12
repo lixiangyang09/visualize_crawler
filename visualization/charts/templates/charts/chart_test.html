@@ -1,0 +1,55 @@
+<html>
+<head>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+<div id="container" style="height: 300px"></div>
+</body>
+<script type="text/javascript">
+let x_data = {{ ip_time|safe }};
+let y1_data = {{ ip_count|safe }};
+
+console.log(x_data)
+$(document).ready(function () {
+    $('#container').highcharts({
+
+    chart: {
+
+        zoomType: 'x',
+        panning: true,
+        panKey: 'shift'
+    },
+
+    title: {
+        text: '2017年环法德法国第八站：Dole站'
+    },
+
+    xAxis: {
+        title: {
+            text: '距离'
+        },
+        categories: x_data,
+        tickmarkPlacement: 'on'
+    },
+
+    yAxis: {
+
+        title: {
+            text: 'help'
+        },
+
+    },
+
+    legend: {
+        enabled: false
+    },
+
+    series: [{
+        name: '其他',
+        data: y1_data
+    }]
+    });
+});
+</script>
+</html>
