@@ -31,18 +31,32 @@ def basic_statistic(request):
     # current, just load the data from file
     print(os.getcwd())
     data_file = '../../crawler/output/daily_cache'
+    # data_file = '../../../crawler/output/daily_cache'
     with open(data_file, "rb") as f:
         daily_data_tmp = pickle.load(f)
     daily_data = daily_data_tmp['data']
-    # ignore the data of first day
-    data = {'date': [], 'up': [], 'down': [], 'inc': [], 'dec': []}
-    for key in sorted(list(daily_data.keys()))[1:]:
-        value = daily_data[key]
-        data['date'].append(key.strftime('%Y-%m-%d'))
-        data['up'].append(value['up_count'])
-        data['down'].append(value['down_count'])
-        data['inc'].append(value['inc_count'])
-        data['dec'].append(value['dec_count'])
+    districts = dict()
+    for key in sorted(list(daily_data.keys())):
+        value = daily_data[key]['districts']
+        for dis_name, dis_value in value.items():
+            if dis_name not in districts:
+                districts[dis_name] = {'x_data': [], 'on': [], 'up': [], 'down': [], 'inc': [], 'dec': []}
+                break  # ignore the data of first day, because all the data is marked as new up.
+            districts[dis_name]['x_data'].append(key.strftime('%Y-%m-%d'))
+            districts[dis_name]['on'].append(dis_value['on_sell_count'])
+            districts[dis_name]['up'].append(dis_value['up_count'])
+            districts[dis_name]['down'].append(dis_value['down_count'])
+            districts[dis_name]['inc'].append(dis_value['inc_count'])
+            districts[dis_name]['dec'].append(dis_value['dec_count'])
 
+    sorted_data = dict()
+    for k in sorted(districts.keys(), reverse=True):
+        if k == '':
+            sorted_data['abnormal'] = districts[k]
+        else:
+            sorted_data[k] = districts[k]
+    print(sorted_data)
     return render(request, "charts/basic_statistic.html",
-                  {'data': data})
+                  {'data': sorted_data})
+
+

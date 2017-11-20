@@ -4,48 +4,48 @@
     <script src="http://code.highcharts.com/highcharts.js"></script>
 </head>
 <body>
-<div id="container" style="height: 300px"></div>
 </body>
 <script type="text/javascript">
-let data = {{ data|safe }};
 
+
+function createElement(name, data){
+console.log(name)
 console.log(data)
-$(document).ready(function () {
-    $('#container').highcharts({
+let div_instant = document.createElement("div");
+div_instant.id = "chart_" + name;
+div_instant.style.margin = "40px";
+div_instant.style.height = "300px";
+chart_title = name + " 200-1600";
+document.body.appendChild(div_instant);
 
+$('#chart_' + name).highcharts({
     chart: {
-
         zoomType: 'x',
         panning: true,
         panKey: 'shift'
     },
-
     title: {
         text: '链家数据统计'
     },
     subtitle: {
-        text: '海淀 200-1600；西城 200-1600'
+        text: chart_title
     },
     xAxis: {
         title: {
             text: '日期'
         },
-        categories: data.date,
+        categories: data.x_data,
         tickmarkPlacement: 'on'
     },
-
     yAxis: {
-
         title: {
             text: '数量'
         },
-
     },
 
     legend: {
         enabled: false
     },
-
     series: [{
         name: '涨价',
         data: data.inc
@@ -63,6 +63,16 @@ $(document).ready(function () {
         data: data.down
     }]
     });
+}
+
+let districts = {{ data|safe }};
+
+$(document).ready(function () {
+console.log(districts)
+for (let dis_name in districts) {
+    createElement(dis_name, districts[dis_name]);
+}
+
 });
 </script>
 </html>
