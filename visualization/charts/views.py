@@ -30,19 +30,20 @@ def chart_test(request):
 def basic_statistic(request):
     # current, just load the data from file
     print(os.getcwd())
-    data_file = '../../crawler/output/daily_cache'
+    data_file = '../../crawler/output/chart_data'
+    # data_file = '../../../crawler/output/daily_cache'
     with open(data_file, "rb") as f:
-        daily_data_tmp = pickle.load(f)
-    daily_data = daily_data_tmp['data']
-    # ignore the data of first day
-    data = {'date': [], 'up': [], 'down': [], 'inc': [], 'dec': []}
-    for key in sorted(list(daily_data.keys()))[1:]:
-        value = daily_data[key]
-        data['date'].append(key.strftime('%Y-%m-%d'))
-        data['up'].append(value['up_count'])
-        data['down'].append(value['down_count'])
-        data['inc'].append(value['inc_count'])
-        data['dec'].append(value['dec_count'])
+        daily_data = pickle.load(f)
 
+    # print(daily_data)
+
+    # test_data = [("a", {'x_data': [121212], 'on': [1], 'up': [2], 'down': [3], 'inc': [5], 'dec': [6]})]
+    names = [v[0] for v in daily_data]
+    data = [v[1] for v in daily_data]
+    print(names)
+    print(data)
     return render(request, "charts/basic_statistic.html",
-                  {'data': data})
+                  {'names': names, 'data': data})
+
+
+
