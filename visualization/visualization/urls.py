@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^$', chart_views.home, name='home'),
     url(r'^test_js/', chart_views.test_js),
     url(r'^test_chart/', chart_views.chart_test),
-    url(r'^basic_statistic/', chart_views.basic_statistic),
+    url(r'^basic_statistic/$', chart_views.basic_statistic),
+    url(r'^basic_statistic/(\w+)/$', chart_views.new_basic_statistic),
+
 ]
