@@ -31,7 +31,7 @@ def basic_statistic(request):
     # current, just load the data from file
     print(os.getcwd())
     data_file = '../../crawler/output/chart_data'
-    render_data(request, data_file)
+    return render_data(request, data_file)
 
 
 def render_data(request, data_file):
@@ -52,5 +52,5 @@ def render_data(request, data_file):
 
 def new_basic_statistic(request, city):
     data_file = '../../new_crawler/chart_data/' + city
-    render_data(request, data_file)
+    return render_data(request, data_file)
 
