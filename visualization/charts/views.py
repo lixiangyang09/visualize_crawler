@@ -44,8 +44,8 @@ def render_data(request, data_file):
     # test_data = [("a", {'x_data': [121212], 'on': [1], 'up': [2], 'down': [3], 'inc': [5], 'dec': [6]})]
     names = [v[0] for v in daily_data]
     data = [v[1] for v in daily_data]
-    print(names)
-    print(data)
+    # print(names)
+    # print(data)
     return render(request, "charts/basic_statistic.html",
                   {'names': names, 'data': data})
 
