@@ -1,0 +1,76 @@
+<html>
+<head>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+
+
+function createElement(title, x_date, names, data){
+
+let div_instant = document.createElement("div");
+div_instant.id = "chart_" + title;
+div_instant.style.margin = "40px";
+div_instant.style.height = "300px";
+document.body.appendChild(div_instant);
+
+$('#chart_' + title).highcharts({
+    chart: {
+        zoomType: 'x',
+        panning: true,
+        panKey: 'shift'
+    },
+    title: {
+        text: title
+    },
+    xAxis: {
+        title: {
+            text: '日期'
+        },
+        categories: x_date,
+        tickmarkPlacement: 'on'
+    },
+    yAxis: {
+        title: {
+            text: '数量'
+        },
+    },
+
+    legend: {
+        enabled: false
+    },
+    series: [{
+        name: names[0],
+        data: data[0]
+    },
+    {
+        name: names[1],
+        data: data[1]
+    },
+    {
+        name: names[2],
+        data: data[2]
+    },
+    {
+        name: names[3],
+        data: data[3]
+    }]
+    });
+}
+
+let title_g = {{ title|safe }};
+let x_data_g = {{ x_data|safe }};
+let names_g = {{ names|safe }};
+let data_g = {{ data|safe }};
+
+$(document).ready(function () {
+for (let i=0; i< title_g.length; i++) {
+    createElement(title_g[i], x_data_g[i], names_g[i], data_g[i]);
+}
+
+});
+</script>
+</html>
+

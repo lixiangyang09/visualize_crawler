@@ -24,5 +24,7 @@ urlpatterns = [
     url(r'^test_chart/', chart_views.chart_test),
     url(r'^basic_statistic/$', chart_views.basic_statistic),
     url(r'^basic_statistic/(\w+)/$', chart_views.new_basic_statistic),
+    url(r'^jianwei/monthly/$', chart_views.jianwei_monthly),
+    url(r'^jianwei/daily/$', chart_views.jianwei_daily),
 
 ]

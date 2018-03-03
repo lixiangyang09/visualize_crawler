@@ -7,10 +7,9 @@
 <div id="container" style="height: 300px"></div>
 </body>
 <script type="text/javascript">
-let x_data = {{ ip_time|safe }};
-let y1_data = {{ ip_count|safe }};
-
-console.log(x_data)
+let dis_data = {{ data| safe}};
+console.log(dis_data)
+let names = ['name1', 'name2']
 $(document).ready(function () {
     $('#container').highcharts({
 
@@ -29,7 +28,7 @@ $(document).ready(function () {
         title: {
             text: '距离'
         },
-        categories: x_data,
+        categories: dis_data.ip_time,
         tickmarkPlacement: 'on'
     },
 
@@ -46,8 +45,8 @@ $(document).ready(function () {
     },
 
     series: [{
-        name: '其他',
-        data: y1_data
+        name: names[0],
+        data: dis_data.ip_count
     }]
     });
 });
